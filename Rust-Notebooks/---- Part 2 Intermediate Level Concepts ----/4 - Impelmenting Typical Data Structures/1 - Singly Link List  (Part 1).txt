@@ -1,0 +1,69 @@
+// -------------------------------------------
+// 		Link List (Part 1)
+// -------------------------------------------
+
+// Handled Issues here
+//head could be empty 
+
+#[derive(Debug)]
+struct Linklist {			//it constains information about the head node
+    head: pointer,
+}
+
+#[derive(Debug)]
+struct Node {
+    element: i32,
+    next: pointer,
+}
+
+type pointer = Option<Box<Node>>;  //type aliasing mean defining Option<Box<Node>> again and again aliase it as pointer point to next node that could be Node or non
+fn main() {
+    // let list = Node {
+    //     element: 1,
+    //     next: None,
+    // };
+
+    // let list = Node {
+    //     element: 1,
+    //     next: Some(Box::new(Node {
+    //         element: 2,
+    //         next: None,
+    //     })),
+    // };
+
+    // let list = Linklist {
+    //     head: Some(Node {
+    //         element: 1,
+    //         next: None,
+    //     }),
+    // };
+
+    // let list = Linklist {
+    //     head: Some(Node {
+    //         element: 1,
+    //         next: Some(Box::new(Node {
+    //             element: 2,
+    //             next: Some(Box::new(Node {
+    //                 element: 3,
+    //                 next: None,
+    //             })),
+    //         })),
+    //     }),
+    // };
+
+    // let list = Linklist { head: None };
+
+//====================above are the use cases defined from begining of main to till this line 
+
+    let list = Linklist {
+        head: Some(Box::new(Node {
+            element: 100,
+            next: Some(Box::new(Node {
+                element: 200,
+                next: None,
+            })),
+        })),
+    };
+
+    println!("{:?}", &list.head);
+}

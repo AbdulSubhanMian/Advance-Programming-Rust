@@ -1,0 +1,92 @@
+// -------------------------------------------
+// 		Link List (Part 2)
+// -------------------------------------------
+//implementation for link list here in previously node and insertion data in node implemented
+
+
+#[derive(Debug)]
+struct Linklist {
+    head: pointer,
+}
+
+#[derive(Debug)]
+struct Node {
+    element: i32,
+    next: pointer,
+}
+type pointer = Option<Box<Node>>;
+
+impl Linklist {
+//constructor funcion it return linklist
+    fn new() -> Linklist {
+        Linklist { head: None }
+    }
+
+    fn add(&mut self, element: i32) {
+        // match self.head {
+        //     None => {
+        //         let new_node = Some(Box::new(Node {
+        //             element: element,
+        //             next: None,
+        //         }));
+        //         self.head = new_node;
+        //     }
+        //     Some(previous_head) => {
+        //         let new_node = Some(Box::new(Node {
+        //             element: element,
+        //             next: Some(previous_head),
+        //         }));
+        //         self.head = new_node;
+        //     }
+        // }
+
+//============Take Function===============
+// fn take<T>(dest: &mut T) -> T	//gpt:	https://chatgpt.com/share/bbde55aa-2a27-4f05-a003-3b39bbf0cb03
+self.head.take()
+In Rust, Option has a method take which replaces the value of the Option with None and returns the original value. This is very useful for manipulating options in a concise and safe manner.
+
+Here's what self.head.take() does:
+
+self.head.take() sets self.head to None and returns its previous value, which could be Some(Box<Node>) if the list has elements or None if the list is empty
+
+//=======================================
+
+        // fn take<T>(dest: &mut T) -> T
+        let previous_head = self.head.take();	//This line sets self.head to None and stores the original head in previous_head
+        let new_head = Some(Box::new(Node {
+            element: element,
+            next: previous_head,
+        }));	//This creates a new node with the given element and sets its next to previous_head, effectively linking the new node to the existing list.
+        self.head = new_head;	//Finally, the new node is set as the new head of the list.
+    }
+
+    fn remove(&mut self) -> Option<i32> {
+        match self.head.take() {
+            Some(previous_head) => {
+                self.head = previous_head.next;
+                Some(previous_head.element)
+            }
+            None => None,
+        }
+    }
+
+    fn print(&self) {
+        let mut list_traversal = &self.head;
+        while !list_traversal.is_none() {
+            println!("{:?}", list_traversal.as_ref().unwrap().element);
+            list_traversal = &list_traversal.as_ref().unwrap().next;
+        }
+    }
+}
+fn main() {
+    let mut list = Linklist::new();
+    list.add(5);
+    list.add(7);
+    list.add(10);
+    list.add(15);
+    list.add(20);
+
+    //println!("List: {:?}", list);
+    list.print();
+    println!("{}", list.remove().unwrap());
+}

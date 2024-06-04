@@ -1,0 +1,99 @@
+// -------------------------------------------
+// 			Generic Lifetimes
+
+adding of generics while return type of function using `a tig a
+// -------------------------------------------
+at line 11 reference variable 
+static lifetime: making reference variable lifetime equal to main function 
+//in static lifetime no need for generics paramter 
+
+fn get_static_str() -> &'static str {
+    "Hello, world!"
+}
+
+fn main() {
+    let s = get_static_str();
+    println!("{}", s);
+}
+n this example:
+
+get_static_str returns a string slice with a 'static lifetime.
+The string literal "Hello, world!" is stored in the binary and is valid for the entire program's duration.
+Even though s is used within the main function, the data it references has a 'static lifetime and is valid beyond the scope of main.
+
+===================================
+
+// Example 1:
+/* fn main() {
+    let int1 = 5;
+    let int2 = 10;
+    let picked_value = picking_int(&int1, &int2);
+    println!("{picked_value}");
+}
+
+fn picking_int<'a>(i: &'a i32, j: &'a i32) -> &'a i32 {
+    if rand::random() {
+        i
+    } else {
+        j
+    }
+}
+*/
+
+// Example 2:
+/*
+fn main(){
+let int1 = 5;
+    {
+        let int2 = 10;
+        let picked_value = picking_int(&int1, &int2);
+        println!("{picked_value}");
+    }
+}
+
+fn picking_int<'a>(i: &'a i32, j: &'a i32) -> &'a i32 {
+    if rand::random() {
+        i
+    } else {
+        j
+    }
+}
+*/
+
+// Example 3:
+/* fn main() {
+    let int1 = 5;
+    let picked_value;
+    {
+        let int2 = 10;
+        picked_value = picking_int(&int1, &int2);
+    }
+    //println!("{picked_value}");
+}
+
+fn picking_int<'a>(i: &'a i32, j: &'a i32) -> &'a i32 {
+    if rand::random() {
+        i
+    } else {
+        j
+    }
+}
+*/
+
+// Example 4:
+/*
+fn main() {
+    let int1 = 5;
+    let picked_value;
+    {
+        let int2 = 10;
+        picked_value = picking_int(&int1, &int2);
+    }
+    println!("{picked_value}");
+}
+
+fn picking_int(i: &i32, j: &i32) -> &'static i32 {
+    let y: &'static i32 = &6;
+    y
+}
+*/
